@@ -35,4 +35,7 @@ This code allows comparison of the text labels from an original image and later 
 Using this code requires images with bounding boxes and corresponding '.txt' files containing coordinate data. The bounding box information from the '.txt' files is used to extract and save the matching object regions from both the before and after images.
 
 ## Data Extraction
+This code identifies elliptical boundaries around objects in images and extracts information such as the center, shape, brightness, area, eccentricity, FWHM, and compares the average intensity between two images. The resulting data is saved to an Excel file.
 
+## Additional Data Extraction
+This code imports data from an Excel file and calculates the refractive index using H₂O₂ concentration, cell volume, H₂O₂ efflux rate, and a formula derived from FDTD modeling. The results are saved to a new Excel file.
