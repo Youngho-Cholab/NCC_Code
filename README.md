@@ -27,4 +27,12 @@ python /Your_Train_Folder/train.py --img 640 --conf 0.25 --batch 16 --epochs 50 
 # Detecting
 python /Your_Path_to_Detect_File/detect.py --weights /Your_Path_to_Model/model_name.pt --img 640 --conf 0.25 --source /Your_Path_to_Images/ --project /Your_Path_for_Results/ --name Folder_name
 
-## Cell Extracting
+## Intensity Adjustment
+This code adjusts brightness differences by comparing each image to the average background brightness, then applies CLAHE to enhance contrast, resulting in images with a uniform background.
+
+## Cell Location Comparison
+This code allows comparison of the text labels from an original image and later images, crops the regions containing the same objects from both images, and saves them.
+Using this code requires images with bounding boxes and corresponding '.txt' files containing coordinate data. The bounding box information from the '.txt' files is used to extract and save the matching object regions from both the before and after images.
+
+## Data Extraction
+
