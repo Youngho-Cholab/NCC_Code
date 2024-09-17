@@ -58,15 +58,3 @@ This code imports data from an Excel file and calculates the refractive index us
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Citation
-If you find this work helpful, please cite our paper:
-```
-@article{song2023nanosensor,
-  title={Unveiling Aging Heterogeneities in Human Dermal Fibroblasts via Nanosensor Chemical Cytometry},
-  author={Song, Youngho and Seo, Inwoo and Tian, Changyu and An, Jiseon and Park, Seongcheol and Hyun, Jiyu and Jung, Seunghyuk and Park, Hyun-Ji and Bhang, Suk Ho and Cho, Soo-Yeon},
-  journal={Nature Nanotechnology},
-  year={2023},
-  publisher={Nature Publishing Group}
-}
-```
