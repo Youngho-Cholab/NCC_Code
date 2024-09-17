@@ -2,8 +2,8 @@ import cv2
 import os
 from tqdm import tqdm
 
-input_folder = r"C:\Users\tdg38\Desktop\hDF"
-output_folder = r"C:\Users\tdg38\Desktop\hDF_EF"
+input_folder = r"Your_path_to_image_file"
+output_folder = r"Your_path_to_image_file"
 
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
 

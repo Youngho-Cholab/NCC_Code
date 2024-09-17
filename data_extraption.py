@@ -5,9 +5,9 @@ import os
 import pandas as pd
 from scipy.interpolate import interp1d
 
-# 폴더 경로 설정 (이미지 저장)
-bf_save_folder = r"C:\ADSC_data\ADSC_D21\ADSC_O21_24.06.25_BF_image"
-af_save_folder = r"C:\ADSC_data\ADSC_D21\ADSC_O21_24.06.25_AF_image"
+# Set folder paths (for saving images)
+bf_save_folder = r"Your_path\example_BF_image"
+af_save_folder = r"Your_path\example_AF_image"
 
 # Check if folders exist, if not, create them
 if not os.path.exists(bf_save_folder):
@@ -15,21 +15,21 @@ if not os.path.exists(bf_save_folder):
 if not os.path.exists(af_save_folder):
     os.makedirs(af_save_folder)
     
-# 폴더 경로 설정
-folder_path = r"C:\ADSC_data\ADSC_D21"
+# Set folder path
+folder_path = r"Your_path"
 # Create a DataFrame to store the results
-data = pd.DataFrame(columns=["Filename", "Major Axis", "Minor Axis", "Size(μm²)","Eccentricity", "FWHM", 
-                             "Intensity Mean (First Image)","Intensity Mean (Second Image)"])
+data = pd.DataFrame(columns=["Filename", "Major Axis", "Minor Axis", "Size(μm²)", "Eccentricity", "FWHM", 
+                             "Intensity Mean (First Image)", "Intensity Mean (Second Image)"])
 
-src_dir = r"C:\ADSC_data\ADSC_D21\ADSC_O21_24.06.25_BF"
-src2_dir = r"C:\ADSC_data\ADSC_D21\ADSC_O21_24.06.25_AF"
-output_filename = "ADSC_O21_24.06.25.xlsx"
+src_dir = r"Your_path_BF"
+src2_dir = r"Your_path_AF"
+output_filename = "Your_path_to_excel_file/*.xlsx"
 
 # Process all files in the directories
 for src_filename in os.listdir(src_dir):
     src_path = os.path.join(src_dir, src_filename)
     
-    # src_filename에서 "_BF_" 부분을 "_AF_"로 변경하여 src2의 파일명을 생성합니다.
+    # Generate the filename in src2 by replacing "_BF_" in src_filename with "_AF_".
     src2_filename = src_filename.replace("_BF_", "_AF_")
     src2_path = os.path.join(src2_dir, src2_filename)
 
@@ -94,7 +94,7 @@ for src_filename in os.listdir(src_dir):
     # Adjust contrast using best alpha2
     dst3 = np.clip((1 + best_alpha2) * src - 128 * best_alpha2, 0, 255).astype(np.uint8)
         
-    # 원을 그릴 이미지를 복사해서 새로운 변수에 저장합니다.
+    # Copy the image to draw the circle
     bf_image_with_circle = dst3.copy()
     
     # Ellipse parameters
@@ -135,7 +135,7 @@ for src_filename in os.listdir(src_dir):
                 if x >= 0 and x < src.shape[1]:
                     intensity_sum += src[y, x]
             avg_intensity = intensity_sum / (2 * short_radius)
-            #intensity change
+            # Intensity change
             y_values.append(avg_intensity)
         else:
             y_values.append(0.0)
@@ -191,8 +191,7 @@ for src_filename in os.listdir(src_dir):
     else:
         continue
    
-    ## molecular
-    #intensity change
+    ## Molecular intensity change
     # Calculate the intensity mean for src_copy
     intensity_mean_src_copy = np.mean(src_copy)
 
@@ -215,13 +214,13 @@ for src_filename in os.listdir(src_dir):
     # Increase the size of the ellipse axes by 4 pixels each (2 pixels for each side)
     larger_axes = (axes[0] + 4, axes[1] + 4)
 
-    # 원을 그릴 이미지를 복사해서 새로운 변수에 저장합니다.
+    # Copy the image to draw the circle
     af_image_with_circle = dst2_second.copy()
 
     # Draw the larger ellipse on this copy
     cv2.ellipse(af_image_with_circle, (center, larger_axes, orientation), (0, 255, 0), 1)
 
-    # Draw the larger ellipse on the dst2_second
+    # Draw the larger ellipse on dst2_second
     cv2.ellipse(dst2_second, (center, larger_axes, orientation), (0, 255, 0), 1)
 
     # Generate the ellipse mask for the second image using the original best_ellipse
@@ -237,14 +236,13 @@ for src_filename in os.listdir(src_dir):
                                           "Intensity Mean (Second Image)": [intensity_mean2]})],
                      ignore_index=True)
 
-    # 원을 그린 이미지 저장 (BF)
+    # Save the image with the circle drawn (BF)
     bf_circle_path = os.path.join(bf_save_folder, src_filename)
     cv2.imwrite(bf_circle_path, bf_image_with_circle)
     
-    # 원을 그린 이미지 저장 (AF)
+    # Save the image with the circle drawn (AF)
     af_circle_path = os.path.join(af_save_folder, src2_filename)
     cv2.imwrite(af_circle_path, af_image_with_circle)
     
 # Save the DataFrame to an Excel file
 data.to_excel(os.path.join(folder_path, output_filename))
-
