@@ -25,3 +25,5 @@ python /Your_Train_Folder/train.py --img 640 --conf 0.25 --batch 16 --epochs 50 
 
 # Detecting
 python /Your_Path_to_Detect_File/detect.py --weights /Your_Path_to_Model/model_name.pt --img 640 --conf 0.25 --source /Your_Path_to_Images/ --project /Your_Path_for_Results/ --name Folder_name
+
+## Cell Extracting
