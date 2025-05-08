@@ -55,6 +55,13 @@ This code identifies elliptical boundaries around objects in images and extracts
 ## Additional Data Extraction
 This code imports data from an Excel file and calculates the refractive index using H₂O₂ concentration, cell volume, H₂O₂ efflux rate, and a formula derived from FDTD modeling. The results are saved to a new Excel file.
 
+## Passage Prediction
+This module enables the prediction of cellular passage numbers (P5 to P15) based on features extracted through NCC. It includes training and inference scripts, along with pretrained model weights and clustering-based preprocessing components.
+
+- `passage_prediction_training.py`: Trains a multi-task neural network to classify passage numbers using features such as ROS efflux, refractive index, and spatial density distributions.
+- `predict_passage_probability.py`: Applies the trained model to new single-cell data and outputs passage prediction probabilities for each sample.
+- `passage_prediction_model.pth`: Pretrained model weights for the passage prediction model.
+- `clustering_params.pkl`: Preprocessing objects including StandardScaler, PCA, KMeans, and DBSCAN used to generate cluster-based input features.
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
