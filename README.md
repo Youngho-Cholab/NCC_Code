@@ -4,6 +4,15 @@ This repository contains the code for the paper "Unveiling Aging Heterogeneities
 ## Project Overview
 Nanosensor Chemical Cytometry (NCC) enables the precise detection of aging-related cellular heterogeneities at the single-cell level. This repository provides the code for training models, detecting cellular features, and extracting relevant data using YOLO-based object detection and additional image processing techniques.
 
+## Project Structure
+
+The project is organized into the following main directories:
+
+1_image_preprocessing/                 # Image brightness normalization and CLAHE  
+2_detection/                          # YOLO-based single-cell detection  
+3_cell_tracking_feature_extraction/  # Matched cell cropping and feature extraction  
+4_passage_prediction/                # Passage number prediction model and scripts  
+data/                                # Input image datasets (e.g., p5.zip, p15.zip)
 
 ## Creating the YAML Configuration
 ```python
@@ -37,31 +46,44 @@ python /your_path/train.py --img 640 --conf 0.25 --batch 16 --epochs 50 --data /
 python /your_path/detect.py --weights /your_path/model_name.pt --img 640 --conf 0.25 --source /your_path_to_images/ --project /your_path/ --name Folder_name
 ```
 
-## Intensity Adjustment
-The intensity adjustment module ensures uniform brightness across images by:
+## Image Preprocessing
+`1_image_preprocessing/intensity_adjustment.py`:  
+Applies brightness normalization and CLAHE to standardize input images before detection.
 
-1. Comparing each image's brightness to the average background brightness.
-2. Applying Contrast Limited Adaptive Histogram Equalization (CLAHE) to enhance image contrast.
 
-This process helps standardize image backgrounds for better analysis.
+## Matched Cell Cropping & Feature Extraction
+This step includes tracking cells across time points and extracting single-cell features for downstream analysis.
 
-## Cell Location Comparison
-This code compares the text labels of the original and subsequent images, crops regions containing the same objects from both images, and saves them.
-To use this code, images with bounding boxes and corresponding '.txt' files containing coordinate data are required. The bounding box information from the '.txt' files is used to extract and save matching object regions from both the before and after images.
+- `3_cell_tracking_feature_extraction/crop_matched_0min_10min_cells.py`:
+Matches cells between two time points (e.g., 0 min and 10 min) using YOLO-based detection results, then crops the matched regions.
 
-## Data Extraction
-This code identifies elliptical boundaries around objects in images and extracts information such as the center, shape, brightness, area, eccentricity, and FWHM, then compares the average intensity between two images. The extracted data is saved to an Excel file.
-
-## Additional Data Extraction
-This code imports data from an Excel file and calculates the refractive index using H₂O₂ concentration, cell volume, H₂O₂ efflux rate, and a formula derived from FDTD modeling. The results are saved to a new Excel file.
+- `3_cell_tracking_feature_extraction/nIR_cell_feature_extraction.py` :
+Extracts features such as size, brightness, eccentricity, ROS efflux, and refractive index (computed via an FDTD-based formula) from cropped cell images. The output is saved in Excel format.
 
 ## Passage Prediction
-This module enables the prediction of cellular passage numbers (P5 to P15) based on features extracted through NCC. It includes training and inference scripts, along with pretrained model weights and clustering-based preprocessing components.
 
-- `passage_prediction_training.py`: Trains a multi-task neural network to classify passage numbers using features such as ROS efflux, refractive index, and spatial density distributions.
-- `predict_passage_probability.py`: Applies the trained model to new single-cell data and outputs passage prediction probabilities for each sample.
-- `passage_prediction_model.pth`: Pretrained model weights for the passage prediction model.
-- `clustering_params.pkl`: Preprocessing objects including StandardScaler, PCA, KMeans, and DBSCAN used to generate cluster-based input features.
+Located in `4_passage_prediction/`.
+
+This module predicts the passage number (P5 to P15) of individual cells based on NCC-derived features.
+
+- `4_passage_prediction/passage_prediction_training.py`:  
+  Trains a multi-task neural network using features such as ROS efflux, refractive index, and spatial density.
+- `4_passage_prediction/predict_passage_probability.py`:  
+  Applies the trained model to new single-cell data and outputs prediction probabilities for each passage number.
+- `4_passage_prediction/passage_prediction_model.pth`:  
+  Pretrained model weights.
+- `4_passage_prediction/clustering_params.pkl`:  
+  Preprocessing pipeline including StandardScaler, PCA, KMeans, and DBSCAN.
+
+## About the Provided Data and Code
+
+This repository includes a subset of data and code prepared for publication purposes:
+
+- The `data/` folder contains selected example images (10 frames each from P5 and P15 at 0 min and 10 min) used to illustrate the analysis pipeline. Full raw datasets are not included.
+- The code has been trimmed to remove personal or environment-specific configurations and includes only the core modules essential for reproducing the analysis flow presented in the paper.
+
+If you require access to the full dataset or the complete analysis code, please contact the corresponding author as indicated in the publication.
+
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
