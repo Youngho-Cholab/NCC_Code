@@ -75,15 +75,6 @@ This module predicts the passage number (P5 to P15) of individual cells based on
 - `4_passage_prediction/clustering_params.pkl`:  
   Preprocessing pipeline including StandardScaler, PCA, KMeans, and DBSCAN.
 
-## About the Provided Data and Code
-
-This repository includes a subset of data and code prepared for publication purposes:
-
-- The `data/` folder contains selected example images (10 frames each from P5 and P15 at 0 min and 10 min) used to illustrate the analysis pipeline. Full raw datasets are not included.
-- The code has been trimmed to remove personal or environment-specific configurations and includes only the core modules essential for reproducing the analysis flow presented in the paper.
-
-If you require access to the full dataset or the complete analysis code, please contact the corresponding author as indicated in the publication.
-
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
