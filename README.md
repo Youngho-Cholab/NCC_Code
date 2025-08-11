@@ -78,3 +78,24 @@ This module predicts the passage number (P5 to P15) of individual cells based on
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Cite this work
+
+If you use **Nanosensor Chemical Cytometry (NCC)** or code in this repository, please cite:
+
+Song, Y., Seo, I., Tian, C. *et al.* Unveiling aging heterogeneities in human dermal fibroblasts via nanosensor chemical cytometry. **Nature Communications** 16, 6276 (2025). https://doi.org/10.1038/s41467-025-61590-8
+
+[![DOI](https://img.shields.io/badge/DOI-10.1038%2Fs41467--025--61590--8-blue)](https://doi.org/10.1038/s41467-025-61590-8)
+
+### BibTeX
+```bibtex
+@article{Song2025NCC,
+  author  = {Song, Y. and Seo, I. and Tian, C. and others},
+  title   = {Unveiling aging heterogeneities in human dermal fibroblasts via nanosensor chemical cytometry},
+  journal = {Nature Communications},
+  year    = {2025},
+  volume  = {16},
+  pages   = {6276},
+  doi     = {10.1038/s41467-025-61590-8},
+  url     = {https://doi.org/10.1038/s41467-025-61590-8}
+}
